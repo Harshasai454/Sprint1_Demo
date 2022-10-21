@@ -16,7 +16,9 @@ public class Device1 {
 	private String conpanyName;
 	private String deviceConfig;
 	
-	@OneToOne(mappedBy="device")
-	private Employee1 empId;
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="fk_emp_id")
+   // @JsonIgnore
+	private Employee1 employee;
 
 }

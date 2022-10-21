@@ -8,4 +8,6 @@ import com.model.Employee1;
 @Repository
 public interface Employee1Dao extends JpaRepository<Employee1, Integer> {
 
+	public Employee1 findByUserName(String username);
+
 }

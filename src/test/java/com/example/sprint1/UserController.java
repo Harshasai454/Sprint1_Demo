@@ -41,9 +41,17 @@ class UserController {
 	
 	
 	@Test
+    void testGetDeliveryPerson() throws URISyntaxException, JsonProcessingException {
+      RestTemplate template=new RestTemplate();
+      final String url="http://localhost:8080/getdeliveryperson/1";
+      URI uri=new URI(url);
+      ResponseEntity<String> res=template.getForEntity(uri,String.class);
+      Assertions.assertEquals(HttpStatus.OK,res.getStatusCode());
+	}
+	@Test
     void testGetTracking() throws URISyntaxException, JsonProcessingException {
       RestTemplate template=new RestTemplate();
-      final String url="http://localhost:8080/getdeliveryperson";
+      final String url="http://localhost:8080/gettrackingdetails/1";
       URI uri=new URI(url);
       ResponseEntity<String> res=template.getForEntity(uri,String.class);
       Assertions.assertEquals(HttpStatus.OK,res.getStatusCode());
