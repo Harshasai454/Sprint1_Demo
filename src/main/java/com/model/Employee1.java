@@ -18,9 +18,9 @@ public class Employee1 {
     private String email;
     private String department;
     
-   /* @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="fk_device_id")
-    private Device1 device;*/
+    private Device1 device;
     
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="fk_add_id")
