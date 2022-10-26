@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.*;
+//import java.util.*;
 import lombok.Data;
 
 
@@ -22,8 +22,9 @@ public class Employee1 {
     private String department;
     
 
-   /* @OneToOne(cascade=CascadeType.ALL)
-    private Device1 device;*/
+    @OneToOne(mappedBy="employee")
+    @JsonIgnore
+    private Device1 device;
     
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="fk_add_id")

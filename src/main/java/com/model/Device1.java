@@ -16,10 +16,12 @@ public class Device1 {
 	private String conpanyName;
 	private String deviceConfig;
 	
-   /* @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="fk_emp_id")
-   // @JsonIgnore
+	@OneToOne(mappedBy="device")
+    @JsonIgnore
+    private Repair1 repair;
+	
+	@OneToOne(cascade=CascadeType.MERGE,fetch=FetchType.EAGER)
+    @JoinColumn(name="fk_employee_id")
 	private Employee1 employee;
-	*/
 
 }

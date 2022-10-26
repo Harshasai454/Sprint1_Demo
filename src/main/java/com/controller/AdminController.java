@@ -8,11 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.controllerexp.AdminNotFoundException;
+import com.controllerexp.AdminOrDeviceNotFoundException;
+import com.controllerexp.EmployeeNotFoundException;
 import com.dao.Admin1Dao;
+import com.dao.Device1Dao;
 import com.dao.Repair1Dao;
 import com.dao.Tracking1Dao;
 import com.model.Admin1;
 import com.model.Authenticate1;
+import com.model.Device1;
 import com.model.Repair1;
 import com.model.Tracking1;
 
@@ -25,6 +29,8 @@ public class AdminController {
 	Admin1Dao adao;
 	@Autowired 
 	Repair1Dao rdao;
+	@Autowired
+	Device1Dao ddao;
 	
 	
 	@GetMapping("/adminhome")
@@ -80,9 +86,21 @@ public class AdminController {
 		}
 		}
 		catch(Exception e) {
-			throw new AdminNotFoundException();
+			throw new AdminOrDeviceNotFoundException();
 		}
 	}
+	
+	@PostMapping("/adddevice")
+	public ResponseEntity<?> addDevice(@RequestBody Device1 device){
+		try {
+			ddao.save(device);
+			return new ResponseEntity<>("device request Submitted!", HttpStatus.OK);
+
+	}catch(Exception e) {
+		throw new EmployeeNotFoundException();
+	}
+	}
+	
 	
 	@GetMapping("/getrepairdetails")
 	public List<Repair1> getrepairdetails() {

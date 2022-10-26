@@ -1,7 +1,5 @@
 package com.controller;
 
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,14 +11,14 @@ import com.controllerexp.RepairNotFoundException;
 import com.controllerexp.TrackingNotFoundException;
 import com.dao.Address1Dao;
 import com.dao.DeliveryPerson1Dao;
-import com.dao.Device1Dao;
+//import com.dao.Device1Dao;
 import com.dao.Employee1Dao;
 import com.dao.Repair1Dao;
 import com.dao.Tracking1Dao;
-import com.model.Address1;
-import com.model.Authenticate2;
+//import com.model.Address1;
+//import com.model.Authenticate2;
 import com.model.DeliveryPerson1;
-import com.model.Device1;
+//import com.model.Device1;
 import com.model.Employee1;
 import com.model.Repair1;
 import com.model.Tracking1;
@@ -54,26 +52,26 @@ public class UserController {
    }
 	
 	@GetMapping("/getdeliveryperson/{id}")
-	public Optional<DeliveryPerson1> getdetails(@PathVariable int id) throws DeliveryNotFoundException{
+	public DeliveryPerson1 getdetails(@PathVariable int id) throws DeliveryNotFoundException{
 		try {
-			return  dpdao.findById(id);
+			return  dpdao.findById(id).get();
 		}catch(Exception e) {
 			throw new DeliveryNotFoundException();
 		}
 	}
 	@GetMapping("/gettrackingdetails/{id}")
-	public Optional<Tracking1> gettrackingdetails(@PathVariable int id) throws TrackingNotFoundException{
+	public Tracking1 gettrackingdetails(@PathVariable int id) throws TrackingNotFoundException{
 		try {
-			return  tdao.findById(id);
+			return  tdao.findById(id).get();
 		}catch(Exception e) {
 			throw new TrackingNotFoundException();
 		}
 	}
 	
 	@GetMapping("/getrepairdetails/{id}")
-	public Optional<Repair1> getrepair(@PathVariable int id) throws RepairNotFoundException {
+	public Repair1 getrepair(@PathVariable int id) throws RepairNotFoundException {
 		try {
-			return  rdao.findById(id);
+			return  rdao.findById(id).get();
 		}catch(Exception e) {
 			throw new RepairNotFoundException();
 		}

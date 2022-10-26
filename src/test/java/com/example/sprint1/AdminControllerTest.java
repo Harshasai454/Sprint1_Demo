@@ -9,10 +9,14 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.dao.Tracking1Dao;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.model.Admin1;
+import com.model.Device1;
+import com.model.Repair1;
 import com.model.Tracking1;
 
 @SpringBootTest
@@ -21,6 +25,9 @@ class AdminControllerTest {
 	@Autowired
 	Tracking1Dao tdao;
 	Tracking1 tracking = new Tracking1();
+	Admin1 admin = new Admin1();
+	Device1 device = new Device1();
+	Repair1 repair = new Repair1();
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception{
 	}
@@ -42,8 +49,22 @@ class AdminControllerTest {
 		Tracking1 t = tdao.findById(tracking.getTracking_Id()).get();
 		Assertions.assertEquals(tracking.getTracking_Id(), t.getTracking_Id());
 	}
+	
+	@Test
+    void testAddAdmin() throws URISyntaxException, JsonProcessingException {
+      RestTemplate template=new RestTemplate();
+      final String url="http://localhost:8080/addadmin";
+      URI uri=new URI(url);
+      HttpHeaders headers = new HttpHeaders();      
+      HttpEntity<Admin1> ht = new HttpEntity<>(admin, headers);
+      ResponseEntity<String> res=template.postForEntity(uri,ht,String.class);
+      Assertions.assertEquals(HttpStatus.OK,res.getStatusCode());
+	}
+	
+	
 	@Test
     void testAddTracking1() throws URISyntaxException, JsonProcessingException {
+	try {
       RestTemplate template=new RestTemplate();
       final String url="http://localhost:8080/addtrackindetails";
       URI uri=new URI(url);
@@ -51,7 +72,42 @@ class AdminControllerTest {
       HttpEntity<Tracking1> ht = new HttpEntity<>(tracking, headers);
       ResponseEntity<String> res=template.postForEntity(uri,ht,String.class);
       Assertions.assertEquals(HttpStatus.OK,res.getStatusCode());
+	}  catch (HttpClientErrorException ex) {
+		Assertions.assertEquals("404 : \"Admin Not Found!\"", ex.getMessage());
+    }
 	}
+	
+	@Test
+    void testAddRepairDetails1() throws URISyntaxException, JsonProcessingException {
+	try {
+      RestTemplate template=new RestTemplate();
+      final String url="http://localhost:8080/addrepairdetails";
+      URI uri=new URI(url);
+      HttpHeaders headers = new HttpHeaders();      
+      HttpEntity<Repair1> ht = new HttpEntity<>(repair, headers);
+      ResponseEntity<String> res=template.postForEntity(uri,ht,String.class);
+      Assertions.assertEquals(HttpStatus.OK,res.getStatusCode());
+	}  catch (HttpClientErrorException ex) {
+		Assertions.assertEquals("404 : \"Please Check Admin details or Device Details!\"", ex.getMessage());
+		
+    }
+	}
+	
+	@Test
+    void testAddDevice() throws URISyntaxException, JsonProcessingException {
+	try {
+      RestTemplate template=new RestTemplate();
+      final String url="http://localhost:8080/adddevice";
+      URI uri=new URI(url);
+      HttpHeaders headers = new HttpHeaders();      
+      HttpEntity<Device1> ht = new HttpEntity<>(device, headers);
+      ResponseEntity<String> res=template.postForEntity(uri,ht,String.class);
+      Assertions.assertEquals(HttpStatus.OK,res.getStatusCode());
+	}catch (HttpClientErrorException ex) {
+		Assertions.assertEquals("404 : \"Employee Not Found!\"", ex.getMessage());
+    }
+	}
+	
 	@Test
     void testGetTracking() throws URISyntaxException, JsonProcessingException {
       RestTemplate template=new RestTemplate();

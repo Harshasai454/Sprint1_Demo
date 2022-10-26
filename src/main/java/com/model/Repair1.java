@@ -12,14 +12,14 @@ public class Repair1
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int repairId;
     private String empName;
+    private String empUserName;
     private String issue;
+    private String  status;
     private String solution;
-    private String deviceConfig;
-    private String companyName;
-    private String device_no;
     private float repairCost;
     
-    
-    //private Device1 device;
+    @OneToOne(cascade=CascadeType.MERGE,fetch=FetchType.EAGER)
+    @JoinColumn(name="fk_device_id")
+	private Device1 device;
  
 }
