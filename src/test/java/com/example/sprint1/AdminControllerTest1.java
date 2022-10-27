@@ -24,6 +24,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.dao.Device1Dao;
 import com.dao.Employee1Dao;
+import com.dao.Repair1Dao;
 import com.dao.Tracking1Dao;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.model.Admin1;
@@ -41,6 +42,9 @@ class AdminControllerTest1 {
 	Employee1Dao edao;
 	@Autowired
 	Device1Dao ddao;
+	@Autowired 
+	Repair1Dao rdao;
+	
 	Tracking1 tracking = new Tracking1();
 	Admin1 admin = new Admin1();
 	Device1 device = new Device1();
@@ -146,11 +150,14 @@ class AdminControllerTest1 {
     void testAddDeviceDao() throws Exception {
         device.setDeviceId(1);
         device.setEmployee(null);
+        device.setRepair(null);
         device.setConpanyName("Apple Macbook");
         device.setDeviceConfig("Macbook M1");
         ddao.save(device);
         Assertions.assertNotNull(ddao.findById(device.getDeviceId()).get());
     }
+    
+
 
 /*
 	@Test

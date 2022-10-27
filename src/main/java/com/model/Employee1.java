@@ -5,10 +5,13 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 //import java.util.*;
-import lombok.Data;
+import lombok.*;
 
 
-@Data
+//@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Employee1 {
 	

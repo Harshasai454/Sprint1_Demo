@@ -1,8 +1,16 @@
 package com.model;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Data
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+//@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Authenticate1 {
 	private Admin1 admin;
 	private Tracking1 tracking;

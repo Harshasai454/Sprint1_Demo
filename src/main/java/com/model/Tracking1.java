@@ -3,10 +3,17 @@ package com.model;
 import java.sql.Date;
 
 import javax.persistence.*;
-import lombok.Data;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.*;
 
  
-@Data
+//@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Tracking1 {
     @Id
