@@ -1,5 +1,7 @@
 package com.model;
 
+import java.sql.Date;
+
 import javax.persistence.*;
 import lombok.Data;
 
@@ -12,6 +14,8 @@ public class Tracking1 {
     private int tracking_Id;
     private String location;
     private String status;  
+    
+    private Date deliveryDate;
     
     @OneToOne(cascade=CascadeType.ALL)
     private DeliveryPerson1 deliveryperson;

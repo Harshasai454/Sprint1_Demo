@@ -62,6 +62,7 @@ public class UserController {
 	@GetMapping("/gettrackingdetails/{id}")
 	public Tracking1 gettrackingdetails(@PathVariable int id) throws TrackingNotFoundException{
 		try {
+	
 			return  tdao.findById(id).get();
 		}catch(Exception e) {
 			throw new TrackingNotFoundException();
@@ -75,6 +76,25 @@ public class UserController {
 		}catch(Exception e) {
 			throw new RepairNotFoundException();
 		}
+	}
+	
+	@GetMapping("/gettrackingbyId/{tracking_Id}")
+	public ResponseEntity<String> findByPk(@PathVariable("tracking_Id") int tracking_Id) throws TrackingNotFoundException{
+		try {
+			Tracking1 obj=tdao.findById(tracking_Id).get();
+			StringBuilder rtnString=new StringBuilder();
+			rtnString.append("Status is: "+obj.getStatus());
+			rtnString.append("\nLocation is: "+obj.getLocation());
+			rtnString.append("\nTracking id: "+obj.getTracking_Id());
+			rtnString.append("\nDelivery Date is on: "+obj.getDeliveryDate());
+			rtnString.append("\nThe Product will be Delivered By "+obj.getDeliveryperson().getName()+" contact details of person is "+obj.getDeliveryperson().getContact_no());
+			
+			String rtn= rtnString.toString();
+			return new ResponseEntity<>(rtn, HttpStatus.OK);	
+		} catch(Exception e) {
+			throw new TrackingNotFoundException();
+		}
+		
 	}
 	
 
